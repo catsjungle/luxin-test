@@ -1,0 +1,44 @@
+[
+    {
+        "ymdMax": "20140427",
+        "ymdMin": "20140328",
+        "url": "20140318/newpop10/index.html",
+        "img": "20140318/newpop10/banner.jpg",
+        "bg": "#a7cbb1"
+    },
+    {
+        "ymdMax": "20140430",
+        "ymdMin": "20140404",
+        "url": "20140404/FilmFestivalForApril/index.html",
+        "img": "20140404/FilmFestivalForApril/banner.jpg",
+        "bg": "#FFFFFF"
+    },
+    {
+        "ymdMax": "20140409",
+        "ymdMin": "20140407",
+        "url": "20140402/stu99_soon/index.html",
+        "img": "20140402/stu99_soon/banner.jpg",
+        "bg": "#270b17"
+    },
+    {
+        "ymdMax": "20140403",
+        "ymdMin": "20140403",
+        "url": "20140402/stu99/index.html",
+        "img": "20140402/stu99/banner.jpg",
+        "bg": "#3cb2b2"
+    },
+    {
+        "ymdMax": "20140406",
+        "ymdMin": "20140404",
+        "url": "20140327/tcdog/index.html",
+        "img": "20140327/tcdog/banner.jpg",
+        "bg": "#FFFFFF"
+    },
+    {
+        "ymdMax": "20140403",
+        "ymdMin": "20140328",
+        "url": "20140327/allies/index.html",
+        "img": "20140327/allies/banner.jpg",
+        "bg": "#df5552"
+    }
+]

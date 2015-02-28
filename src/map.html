@@ -1,0 +1,99 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <script type="text/javascript">
+        var _speedMark = new Date();
+    </script>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <script charset="utf-8" src="http://map.qq.com/api/js?v=2.exp&key=KK6BZ-KX634-2V2U7-D6LIS-4VDHT-RPBAX"></script>
+    <script type='text/javascript'>//<![CDATA[
+    function getQueryStringByName(name){
+        var result = location.search.match(new RegExp("[\?\&]" + name+ "=([^\&]+)","i"));
+        if(result == null || result.length < 1) return "";
+        return decodeURI(result[1]);
+    }
+    window.onload=function(){
+        document.getElementById('wx_cinema_name').innerText=getQueryStringByName("cname");
+        document.getElementById('wx_cinema_addr').innerText=getQueryStringByName("caddr");
+        init();
+        /**/
+    }
+    function init(){
+        var lat=getQueryStringByName('lat');//latitude
+        var lon=getQueryStringByName('lon') ;//longitude
+        var center=new qq.maps.LatLng(lat,lon);
+        var map = new qq.maps.Map(document.getElementById("map_container"), {
+            // 地图的中心地理坐标。
+            center:center,
+            zoom:13,
+            draggable: true,
+            scrollwheel: true,
+            disableDoubleClickZoom: false,
+            panControl: true,
+            zoomControl: true,
+            scaleControl: true,
+            mapTypeId: qq.maps.MapTypeId.ROADMAP
+        });
+        //添加地图导航平移控件
+        var navControl = new qq.maps.NavigationControl({
+            align: qq.maps.ALIGN.TOP_LEFT,
+            style:qq.maps.NavigationControlStyle.NORMAL,
+            margin: new qq.maps.Size(5, 15),
+            map: map
+        });
+        var infoWin = new qq.maps.InfoWindow({
+            map: map,
+            isOpened:false
+        });
+        setTimeout(function(){
+            var marker=new qq.maps.Marker({
+                position:center,
+                animation:qq.maps.MarkerAnimation.DROP,
+                map:map
+            });
+
+            var anchor = new qq.maps.Point(0, 0),
+                    size = new qq.maps.Size(13, 28),
+                    origin = new qq.maps.Point(0, 0),
+                    scaleSize=  new qq.maps.Size(13, 28)
+            makerImg=new qq.maps.MarkerImage("css/img/mapcion.png",size,origin,anchor,scaleSize);
+            marker.setIcon(makerImg);
+
+            qq.maps.event.addListener(marker,"click",function(){
+                var cinemaHtml = document.getElementById('cinema').innerHTML;
+                infoWin.open();
+                infoWin.setMap(map);
+                infoWin.setContent(cinemaHtml);
+                infoWin.setPosition(center);
+                setTimeout(function(){infoWin.isOpened=true;},500);
+            });
+            qq.maps.event.addListener(infoWin,"closeclick",function(){
+                infoWin.isOpened=false;
+            });
+            qq.maps.event.addListener(document,"click",function(e){
+                if (infoWin.isOpened) {
+                    infoWin.isOpened=infoWin.close();
+                }
+            });
+            //marker.setAnimation(qq.maps.Animation.DROP);
+        },500);
+    }
+    //]]>
+    </script>
+    <style type="text/css">html,body{width:100%;height:100%;
+        margin: 0;
+        padding: 0;font-size: 62.5%;}#map_container{width:100%;height:100%;}
+    .remark{padding-top:10px;font-size: 1rem;}
+    .address{width:180px;border-radius:8px;margin:0;padding:0;border:none;}.address h2{margin: 0;font-size: 1.4rem;}</style>
+</head>
+<body>
+<div id="cinema" style="display:none;">
+    <div class="address">
+        <h2 id="wx_cinema_name">影院名称</h2>
+        <div class="remark" id="wx_cinema_addr">影院地址</div>
+    </div>
+</div>
+<div id="map_container"></div>
+<script type="text/javascript" src="http://tajs.qq.com/stats?sId=39537723" charset="UTF-8"></script>
+</body>

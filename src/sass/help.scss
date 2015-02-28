@@ -1,0 +1,99 @@
+@charset "UTF-8";
+
+@import "libs/normalize.scss";
+@import "libs/reset.scss";
+@import "libs/all_beta";
+
+.m-gap{-webkit-animation:pulsate .5s ease-in-out;}
+	@-webkit-keyframes pulsate {
+	0% { opacity:0 }
+	//20% {opacity:.2}
+	40% {opacity:.4}
+	60% {opacity:.6}
+	//80% {opacity:.8}
+	100% {opacity:1}
+}
+
+$gap: 			10px;
+.m-gap{	padding: $gap;}
+
+
+.m-box{
+	background-color: #fff;
+	border: #e3e3e3 solid 1px;
+	border-radius: 	$base-radius;
+	margin: $gap 0;
+	position: relative;
+	@extend .m-gap;
+
+	>a{
+		display: block;
+		margin: 	-$gap;
+		padding: 	$gap;
+	}
+
+	// &.m-box-m0{
+	// 	margin: 0 (-$gap);
+	// 	border-radius: 0;
+	// 	border-top: none;
+	// 	border-left: none;
+	// 	border-right: none;
+	// }
+}
+
+
+.help-box{
+	[class^="ico-"]{
+		//display: list-item;
+		width: auto;
+		height: auto;
+		margin-top: 0;
+		margin-right: 0;
+
+		position: relative;
+		h3{
+			&:before{
+				content: "";
+				display: inline-block;
+				width: 18px;
+				height: 18px;
+				margin-top: -4px;
+				margin-right: 10px;
+				background:url(img/ico_sprite.png) no-repeat;
+				-webkit-background-size: 47px auto;
+				background-size: 47px auto;
+				vertical-align: middle;
+			}
+		}
+
+	}
+	.ico-coupons-02 h3:before{background-position: 0 -29px;}
+	.ico-coupons-03 h3:before{background-position: 0 -58px;}
+	.ico-coupons-04 h3:before{background-position: 0 -84px;width: 22px;margin-right: 6px;}
+	.ico-coupons-05 h3:before{background-position: 0 -112px;}
+
+	ol{
+		//list-style: decimal;
+		
+		li{
+			min-height: 40px;
+			margin-bottom: 10px;
+			//padding-left: 58px;
+			list-style-position: inside;
+			color:$title-font;
+			@extend %M;
+			font-weight: bold;
+			h3{
+				margin-bottom: .3em;
+				@extend %M;
+			}
+			p{
+				color:$gray-font;
+				@extend %S;
+				font-weight: normal;
+			}
+		}
+	}
+
+	
+}

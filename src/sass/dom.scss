@@ -1,0 +1,15 @@
+
+$color: monster;
+
+
+p {
+  @if $color == ocean {
+    color: blue;
+  } @else if $color == matador {
+    color: red;
+  } @else if $color == monster {
+    color: green;
+  } @else {
+    color: black;
+  }
+}

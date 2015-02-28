@@ -1,0 +1,25 @@
+{
+  "name": "WXPiao",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": "",
+  "author": "TENCENT",
+  "license": "Commercial",
+  "dependencies": {
+    "grunt-contrib-watch": "~0.5.3",
+    "grunt": "~0.4.1",
+    "grunt-contrib-requirejs": "~0.4.1",
+    "grunt-growl": "~0.1.5",
+    "grunt-contrib-copy": "~0.4.1",
+    "connect": "~2.9.2",
+    "js-yaml": "~3.0.1"
+  },
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "zepto": "0.0.4"
+  }
+}

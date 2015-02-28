@@ -1,0 +1,54 @@
+// Icon list (corresponds to icon font characters)
+// Note associative arrays will be easier in Sass version 3.3: https://github.com/nex3/sass/issues/642
+$icons: (
+    'facebook' '\e000',
+    'googleplus' '\e001',
+    'linkedin' '\e002',
+    'twitter' '\e003',
+    'youtube' '\e004',
+    'email' '\e005'
+);
+
+// To simulate associative arrays
+// Source: http://hugogiraudel.com/2013/08/12/sass-functions/#mapping
+@function match($haystack, $needle) {
+    @each $item in $haystack {
+        $index: index($item, $needle);
+        @if $index { 
+            $return: if($index == 1, 2, $index);
+            @return nth($item, $return); 
+        }
+    }
+    @return false;
+}
+
+// For adding icons to elements using CSS pseudo-elements
+// Source: http://jaydenseric.com/blog/fun-with-sass-and-font-icons
+@mixin icon($position: 'before', $styles: true, $icon: false) {
+    // Either a :before or :after pseudo-element, defaulting to :before
+    &:#{$position} {
+        @if $icon {
+            // Icon has been specified
+            content: match($icons, $icon);
+        }
+        @if $styles {
+            // Supportive icon styles have been specified
+            speak: none;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            text-transform: none;
+            line-height: 1;
+            font: {
+                style: normal;
+                variant: normal;
+                weight: normal;
+                family: 'Icons';
+            }
+        }
+        // Include any extra rules supplied for the pseudo-element
+        @content;
+    }
+}
+
+icon($position: 'before', $styles: true, $icon: false);
+@include font-face('Icons', '../fonts/icons/icons');

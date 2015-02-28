@@ -1,0 +1,16 @@
+@font-face {
+    font-family: 'ico-webfont';
+    /* IE9 Compat Modes */ 
+    //src: url('fonts/ico-webfont.eot');
+    /* IE6-IE8 */ 
+    src: //url('fonts/ico-webfont.eot?#iefix') format('embedded-opentype'),
+    	 /* Modern Browsers */ 
+         url('fonts/ico-webfont.woff') format('woff'),
+         /* Safari, Android, iOS */ 
+         url('fonts/ico-webfont.ttf') format('truetype');
+         /* Legacy iOS */
+         //url('fonts/ico-webfont.svg#untitledregular') format('svg');
+         
+    font-weight: normal;
+    font-style: normal;
+}

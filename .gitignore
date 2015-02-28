@@ -1,0 +1,13 @@
+node_modules
+dist
+server.js
+src/js/tpl/*.js
+*.swp
+*.map
+.DS_Store
+.bin/
+.idea/
+.sass-cache/
+src/css/style.css.map
+npm-debug.log
+
