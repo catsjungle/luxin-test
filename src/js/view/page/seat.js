@@ -56,7 +56,8 @@ define(['view/page/base', 'viewmodel/page/seat', 'backbone.joint',
                             view.data.checkedSeats = {};
                             _.each(view.vm.seatLocked.sSeatLable.split('|'), function(label) {
                                 var t=label.toString().substring(2).split(":");
-                                view.data.checkedSeats[t[1]+":"+t[2]] = true;
+                                //view.data.checkedSeats[""+t[0]+":"+parseInt(t[1])] = true;
+                                view.data.checkedSeats[t[1] + ':' + t[2]] = true;
                                 var rc = view.vm.locateRC(label);
                                 view.checkTd(rc.row, rc.col, true);
                             });
@@ -367,9 +368,7 @@ define(['view/page/base', 'viewmodel/page/seat', 'backbone.joint',
         },
         onTapLabel: function(event) {
             var view = this;
-
             if(!view.scroll) return;
-
             var label = view.$(event.currentTarget).html();
             
             
@@ -507,7 +506,6 @@ define(['view/page/base', 'viewmodel/page/seat', 'backbone.joint',
                 //Joint.Deferred.when(view.vm.postBuy(view.orderId)).then(function(result) {
                 var param = JSON.parse(result.payment_details.sPayCertificate);
                 Bridge.invoke('getBrandWCPayRequest', param, function(res) {
-                    // alert(JSON.stringify(res));
                     if (res.err_msg == 'get_brand_wcpay_request:ok' || res.err_msg == 'get_brand_wcpay_request:finished') {
                         MessageView.alert('<h3 class="main-color">恭喜您，支付成功</h3><p>我们稍后将向您的微信号发送兑票码，请注意查收！</p>').then(function() {
                             //appRouter.go("success");

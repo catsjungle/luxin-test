@@ -1,8 +1,6 @@
 define(['backbone.joint', 'viewmodel/moviedata', 'util/cookie', 'appRouter','util/platform'], function (Joint, MovieData, cookie, appRouter,Platform) {
     var _login = {
         ensure: function() {
-            // alert('ensure');
-
             return _login.handleCode(location.href).then(function (data) {
                 if (notRedirected(data)) {
                     return Joint.Deferred.resolve(true);
@@ -18,7 +16,6 @@ define(['backbone.joint', 'viewmodel/moviedata', 'util/cookie', 'appRouter','uti
             }
 
             //console.log(['hr',target,param].join('|'));
-            // alert('handleRoute:'+fragment);
             return _login.handleCode(fragment[2]).then(function (data) {
                 if (notRedirected(data)) {
                     appRouter.go(fragment[1]);
@@ -26,8 +23,6 @@ define(['backbone.joint', 'viewmodel/moviedata', 'util/cookie', 'appRouter','uti
             });
         },
         handleCode: function (param) {
-            // alert( 'handleCode'+param );
-
             var self = this;
             param = appRouter.deparam(param);
             if(Joint._.isString(param.uin)) {
@@ -36,7 +31,6 @@ define(['backbone.joint', 'viewmodel/moviedata', 'util/cookie', 'appRouter','uti
             return Joint._.isString(param.code) ? self.saveTokenToCGI(param.code) : self.checkLogin();
         },
         checkLogin: function () {
-            // alert('checkLogin')
             if(localStorage.debug_skipLogin) {
                 return Joint.Deferred.resolve(true);
             }
@@ -52,7 +46,6 @@ define(['backbone.joint', 'viewmodel/moviedata', 'util/cookie', 'appRouter','uti
             }).then(function(o) {
                 // console.log('--------');
                 // console.log(o)
-
                 // debugger
                 if(o.openid) {
                     MovieData.session.openid = o.openid;
@@ -61,7 +54,6 @@ define(['backbone.joint', 'viewmodel/moviedata', 'util/cookie', 'appRouter','uti
             });
         },
         saveTokenToCGI: function (code) {
-            // alert('saveTokenToCGI')
             var url = 'http://cgi.wxmovie.com/oauth?=code' + new Date().getTime();
             //console.log('writing code' + code);
             var o = {
@@ -80,7 +72,7 @@ define(['backbone.joint', 'viewmodel/moviedata', 'util/cookie', 'appRouter','uti
         //return true;
         // console.log(data);
         // debugger;
-        // alert('notRedirected: '+ JSON.stringify(data));
+        
         if (data && data.ret == "302") {
             //console.log(data.redirectUrl);
             location.href = data.redirectUrl;

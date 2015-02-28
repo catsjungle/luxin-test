@@ -2003,7 +2003,7 @@ ul.m-list {
       display: block;
       margin: 0 auto; }
   .select-schedule dd {
-    overflow: auto;
+    overflow: hidden;
     padding-left: 41px;
     border-top: 1px solid #e3e3e3;
     min-height: 49px; }
@@ -2024,7 +2024,7 @@ ul.m-list {
       box-sizing: border-box;
       line-height: 1.4; }
       .select-schedule dd a > span {
-        overflow: auto;
+        overflow: hidden;
         position: relative;
         display: table-cell;
         line-height: 49px;
@@ -3100,4 +3100,4 @@ a.green {
         right: auto;
         border-color: #fff; }
 
-/*# sourceMappingURL=style.css.map */
+/*# sourceMappingURL=stylefyyc.css.map */

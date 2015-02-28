@@ -8,12 +8,12 @@ define([
   'viewmodel/moviedata',
   'view/dialog/message',
   'util/date',
+  'util/cinema',
   'viewmodel/city',
   'tpl/movie_list'
-], function(Base, MovieListVM, Joint, ViewTopNav, BannerView, appRouter, MovieData,MessageView,udate,CityVM) {
+], function(Base, MovieListVM, Joint, ViewTopNav, BannerView, appRouter, MovieData,MessageView,udate,CinemaDe,CityVM) {
   var parent = Base.prototype;
   var _ = Joint._;
-
   return Base.extend({
     template: require('tpl/movie_list'),
 
@@ -97,7 +97,7 @@ define([
     initialize: Joint.after(parent.initialize, function(option) {
       var view = this;
       view.data.daystr = udate.getDayStr();
-      view.setTitle('鲁信影城济南振兴街影城');
+      view.setTitle(CinemaDe.title);
 
       view.data.movie_id="";
       view.data.cinemaId = option.cinemaId;

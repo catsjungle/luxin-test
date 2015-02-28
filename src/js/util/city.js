@@ -2,8 +2,8 @@ define([
   'backbone.joint',
   'view/ui/citypicker',
   'util/cookie',
-  'viewmodel/moviedata','util/platform'
-], function (Joint, CityPicker, cookie, MovieData, Platform) {
+  'viewmodel/moviedata','util/platform','util/cinema'
+], function (Joint, CityPicker, cookie, MovieData, Platform,CinemaDe) {
     var City = {
         Store: {
             get: function() {
@@ -30,16 +30,16 @@ define([
             });
         },
         decideCity: function(name) {
-//            cookie.remove('cinemaid');
-//            cookie.remove('cityid');
             var noCityPage=['order'];
             if (Joint._.include(noCityPage,name)){
                 return Joint.Deferred.resolve();
             }
-            var selectedCity = 210;//City.Store.get();
+            var selectedCity = City.Store.get();
+
 
             return Joint.Deferred.when(City.loadCity(selectedCity.cinema_id)).then(function(cinema){
                 if (cinema) {
+
                     selectedCity.cinema_id=cinema.id;
                     selectedCity.city_id=cinema.city_id||selectedCity.city_id||'10';
                     return Joint.Deferred.resolve(selectedCity);

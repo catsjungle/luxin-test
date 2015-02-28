@@ -3,7 +3,7 @@
  *
  *
  */
-define(['viewmodel/base', 'viewmodel/moviedata', 'backbone.joint', 'util/platform'], function (Base, MovieData, Joint, Platform) {
+define(['viewmodel/base', 'util/cinema', 'viewmodel/moviedata', 'backbone.joint', 'util/platform'], function (Base, CinemaDe, MovieData, Joint, Platform) {
     var _ = Joint._;
     var parent = Joint.ViewModel.prototype;
 
@@ -28,6 +28,7 @@ define(['viewmodel/base', 'viewmodel/moviedata', 'backbone.joint', 'util/platfor
             vm.platformId = Platform.Store.get();
             vm.viewtype=option.args[0]||'main';
             vm.orderId= _.size(option.args)>1?option.args[1]:0;
+            vm.tele = CinemaDe.tele;
 
             //init
             vm.order_main={"payed":[],"unpayed":[],"finished":[]};
@@ -38,13 +39,10 @@ define(['viewmodel/base', 'viewmodel/moviedata', 'backbone.joint', 'util/platfor
                 MovieData.loadOrder(vm.platformId)
             ).then(function (unpayOrder, order) {
                     var up=[];            
-console.log(unpayOrder)
                     var bool = (Object.prototype.toString.call(unpayOrder) == "[object Array]");
-console.log(bool)
                     if (unpayOrder && !bool) {
                         up.push(unpayOrder);
                     }
-console.log(up)
                     if (vm.viewtype=='main'){
                         vm.order_main= _.extend(vm.order_main,_.groupBy(up,function(o){return mapState(1, '99999999999')}));
                         vm.order_main= _.extend(vm.order_main,_.groupBy(order,function(o){return mapState(o.state, o.expired_time)}));
@@ -57,9 +55,9 @@ console.log(up)
                         })
                     }else{
                         vm.unpayOrder= up||[];
-    //                    vm.order= order;
                         order = order||[];
                         vm.finishOrder= _.filter(order,function(o){return mapState(o.state, o.expired_time)=='finished'});
+                        console.log(vm.finishOrder);//21
                         vm.payOrder= _.filter(order,function(o){return mapState(o.state, o.expired_time)=='payed'});
                         vm.orderDetail= _.find(unpayOrder,function(o){ return o.sTempOrderID==vm.orderId; });
                         vm.orderDetail = vm.orderDetail||_.find(order,function(o){ return o.order_id==vm.orderId; });
@@ -73,7 +71,6 @@ console.log(up)
             return Joint.Deferred.when(
                     MovieData.loadUnPayOrder(vm.platformId)
                 ).then(function (unpayOrder) {
-//                    var torder=_.filter(unpayOrder,function(o){return o.sTempOrderID==orderId});
                     var r;
                     var torder=(unpayOrder.sTempOrderID==orderId?unpayOrder:0);
                     if (!torder) {

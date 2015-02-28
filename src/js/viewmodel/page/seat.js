@@ -19,25 +19,14 @@ define(['viewmodel/base', 'viewmodel/moviedata', 'backbone.joint',
             Joint.Deferred.when(
                 loadCinemaSeatStatus(vm.platformId, vm.cinemaid, vm.mpid),
                 MovieData.loadCinemaContent(vm.platformId,vm.cinemaid),
-                //MovieData.getDiscount(),
                 MovieData.setupAjaxCross()
-            ).then(function(mp, cinema/*, discount*/) {
-                /*if(MovieData.inspectCinema(cinema).IGNORE_SEAT) {
-                    return Joint.Deferred.reject('场次不可用');
-                }*/
-                vm.discount = 0;//discount;
+            ).then(function(mp, cinema) {
+
+                vm.discount = 0;
                 vm.cinema = cinema;
                 vm.mp = mp;
                 vm.mptag=0;
-                /*//alert(vm.cinemaid + ':'+ vm.mp.type + ':' + mp.roomid);//1000018
-                if (vm.mp&&vm.cinemaid=='1000018'&&vm.mp.type=='3D'){ //广州天河影城3D眼镜提示需求
-                      if (mp.roomid>=1&&mp.roomid<6){
-                          vm.mptag=1;
-                      }
-                      else if (mp.roomid>=6&&mp.roomid<8){
-                          vm.mptag=2;
-                    }
-                }*/
+
                 return Joint.Deferred.when(
                         loadCinemaRoom(vm.cinemaid, mp.roomid,vm.wanda?5:0),
                         MovieData.loadMovie(mp.mid)
@@ -56,7 +45,6 @@ define(['viewmodel/base', 'viewmodel/moviedata', 'backbone.joint',
                 vm.mylockinfo=myLock;
                     if(myLock&&myLock.schedulePricingId&&myLock.iValidTime>0) {
                         if(myLock.schedulePricingId != vm.mpid || myLock.iCinemaID != vm.cinemaid) {
-                            //坑爹，错的时候缺个ticketid,去拉一下继续reject
                             return loadCinemaSeatStatus(vm.platformId, myLock.iCinemaID, myLock.schedulePricingId).then(function(mp2) {
                                 return Joint.Deferred.reject({
                                     unlockDialog: true,
@@ -66,6 +54,7 @@ define(['viewmodel/base', 'viewmodel/moviedata', 'backbone.joint',
                             });
                         }
                         vm.seatLocked = myLock;
+                        //vm.seatLocked.sSeatLable=vm.seatLocked.sSeatLable.replace(/(^|\D)0/g,"$1");
                     }
 
                     return Joint.Deferred.when(
@@ -74,18 +63,16 @@ define(['viewmodel/base', 'viewmodel/moviedata', 'backbone.joint',
 
                     )
             }).then(function(locked) {
-                console.log(locked)
                 _.each(vm.room.sSeatInfo, function(row) {
                     _.each(row.detail, function(seat, k) {
                         var seatChar = vm.seatChar.seat[seat.loveInd || 0];
-
                         if(seat.n == 'Z') {
                             row.detail[k] = _.extend({
                                 status: 'void',
                                 char: vm.seatChar.noseat,
                                 isSeat: false
                             }, seat);
-                        } else if(seat.damagedFlg == 'Y' || seat.loveInd ==1 ||  seat.loveInd ==2) { // 屏蔽情侣座
+                        } else if(seat.damagedFlg == 'Y') {
                             row.detail[k] = _.extend({
                                 status: 'locked',
                                 char: seatChar,
@@ -155,31 +142,15 @@ define(['viewmodel/base', 'viewmodel/moviedata', 'backbone.joint',
                 }
 
                 return Joint.$.post(url, {
-                    /*
-                    sCmd: 'QRY_SEAT_LOCK',
-                    sMpId: mp.mpid,
-                    iMpId: mp.mpid,
-                    iPartId: mp.traderid,
-                    iDate: mp.date,
-                    iCinemaId: cinemaId,
-                    g_tk: getCsrfToken()
-                    */
+
                     schedulePricingId:mp.mpid,
                     bisServer:Platform.Store.get()  
                 }, 'json').then(function(o) {
                     if(o.ret != 0) {
                         return Joint.Deferred.reject(o);
                     }
-                    // console.log(o);
-                    // debugger;
-
                     var locked = {};
                     if(o.data){
-                        // console.log('o.data--------------------o.data')
-                        // console.log(o)
-                        //o.data数据带大区信息“01:8:9,10”
-                        //需转化->"null:8:9,10"
-                        //o.data=o.data.replace(/(^|\D)0/g,"$1");
                         var mylocks = [];
                         var lockrows = o.data.split('@');
                         for(var i = 0;i < lockrows.length; i++){
@@ -284,20 +255,6 @@ define(['viewmodel/base', 'viewmodel/moviedata', 'backbone.joint',
             var source = this.source;
             return MovieData.setupAjaxCross().then(function() {
                 return $.post("http://cgi.wxmovie.com/cgi-bin/order/payment", {
-                    // suin: 'o0aT-d0W_QdU9lAXyjPjih1cvZTg',
-                    // iuin: '201310171436180000',
-                    /*
-                        openId  string  openId
-                        bank    string  银行编码
-                        subsrc  string  统计来源
-                        phone   string  电话
-                        visitor string  访问者dianying_web 固定
-                        temp_order_id   string  锁座时返回的临时订单号
-                        pay_type    string  空：财付通
-                        schedulePricingId   string  排期批价ID
-                        publicSignalShort   string  微信公众号缩写
-
-                    */
                     bank:"",
                     subsrc: $.os.ios ? '30610000' : '30600000',
                     phone: '13800138000',
@@ -340,8 +297,6 @@ define(['viewmodel/base', 'viewmodel/moviedata', 'backbone.joint',
                 if(o.ret != 0) {
                     return Joint.Deferred.reject(o);
                 }
-                // console.log('用户锁座信息')
-                // console.log(o.data)
                 return o.data;
 
 
@@ -385,12 +340,14 @@ define(['viewmodel/base', 'viewmodel/moviedata', 'backbone.joint',
         },
         locateRC: function(label) {
             var vm = this;
+            
             if(label.split(':').length>2){
                 label = label.toString().substring(label.toString().indexOf(":")+1).split(':');
             }else{
                 label = label.split(':');
             }
-            if(parseInt(label[1])<10){label[1]="0"+parseInt(label[1]);}
+            //if(parseInt(label[1])<10){label[1]="0"+parseInt(label[1]).toString();}
+        
             var result = {};
             _.chain(vm.room.sSeatInfo)
             .map(function(seat, row) {

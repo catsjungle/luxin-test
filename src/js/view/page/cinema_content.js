@@ -1,6 +1,6 @@
-define(['view/page/base', 'viewmodel/page/cinema_content', 'backbone.joint',
+define(['view/page/base', 'util/cinema','viewmodel/page/cinema_content', 'backbone.joint',
     'appRouter', 'tpl/cinema_content'], function(
-      Base, CinemaVM, Joint, appRouter) {
+      Base, CinemaDe, CinemaVM, Joint, appRouter) {
       var parent = Base.prototype;
       var $ = Joint.$;
 
@@ -12,7 +12,7 @@ define(['view/page/base', 'viewmodel/page/cinema_content', 'backbone.joint',
         },
         initialize: Joint.after(parent.initialize, function(option) {
               var view = this;
-              view.setTitle('鲁信影城济南振兴街影城');
+              view.setTitle(CinemaDe.title);
               view.sync('vm', view.vm = new CinemaVM(option));
               //view.handleError(view.vm);
         }),

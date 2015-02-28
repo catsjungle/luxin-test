@@ -48,6 +48,7 @@ zepto
     紧急问题可致电:13521366873，正常购票不受影响。</p>
     </div>
     <% } %>
+
     <div class="loading" id="loading">
         <i></i>
     </div>
@@ -55,6 +56,6 @@ zepto
     
     <nav class="fotter-bar <%=hideFooter ? " m-hide" : "" %>">
         <a class="btn-← touchable bottom-back">上一步</a>
+
         <a class="btn-f5 touchable bottom-refresh">刷新</a>
-        <!-- <a class="btn-f5 btn-disable">刷新</a> -->
     </nav>

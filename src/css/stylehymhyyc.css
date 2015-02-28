@@ -378,10 +378,10 @@ hr {
   text-decoration: none; }
 
 .btn, .btn-top, .nav-back a, .ico-2code, .load-more {
-  background: #0a8cd7;
-  background: -webkit-gradient(linear, 0 0, 0 100%, from(#0a8cd7), to(#0a8cd7));
-  background: -webkit-linear-gradient(top, #0a8cd7, #0a8cd7);
-  border: 1px solid #097cbf;
+  background: #950101;
+  background: -webkit-gradient(linear, 0 0, 0 100%, from(#950101), to(#950101));
+  background: -webkit-linear-gradient(top, #950101, #950101);
+  border: 1px solid #7c0101;
   border-radius: 100px;
   color: #fff;
   border: none !important; }
@@ -483,7 +483,7 @@ a.arr-r-checkmark:after,
 .cinema-box .m-list li.current a:after {
   -webkit-transform: rotate(45deg);
   -ms-transform: rotate(45deg);
-  border-color: #0a8cd7;
+  border-color: #0068b7;
   width: 7px;
   height: 15px; }
 
@@ -641,7 +641,7 @@ h1, h2, h3 {
   background-size: 47px auto; }
 
 .h-box, .nav-back, .pro-inpNum, .pro-inpNum a, .radio .ico-radio {
-  background-color: #0a8cd7; }
+  background-color: #0068b7; }
 
 header, footer {
   min-height: 44px; }
@@ -766,7 +766,7 @@ footer {
 .btn-top, .nav-back a {
   position: relative;
   box-shadow: 0 0 2px rgba(0, 0, 0, 0.5) inset;
-  background: #0982c8;
+  background: #005fa8;
   border: none !important;
   margin: 7px 0 0;
   padding: .5em .7em;
@@ -807,13 +807,13 @@ footer {
     .nav-sub li:last-child:after {
       display: none; }
     .nav-sub li.current a, .nav-sub li.current i:after {
-      color: #0a8cd7; }
+      color: #0068b7; }
   .m-gap .nav-sub {
     position: relative;
     margin-top: -1px;
     border-top: 1px solid #ccc; }
     .m-gap .nav-sub .current {
-      border-bottom: 2px solid #0a8cd7; }
+      border-bottom: 2px solid #0068b7; }
     .m-gap .nav-sub i {
       margin-right: 3px !important; }
     .m-gap .nav-sub + .m-list {
@@ -1010,7 +1010,7 @@ footer {
 .ico-time:after {
   content: "t";
   font-size: 1.2rem;
-  color: #0a8cd7; }
+  color: #0068b7; }
 
 .ico-pos {
   width: 18px;
@@ -1019,7 +1019,7 @@ footer {
     content: "v";
     font-size: 1.4rem;
     line-height: 15px !important;
-    color: #0a8cd7; }
+    color: #0068b7; }
 
 .ico-tel {
   width: 18px;
@@ -1029,10 +1029,10 @@ footer {
     content: "w";
     font-size: 1.4rem;
     line-height: 15px !important;
-    color: #0a8cd7; }
+    color: #0068b7; }
 
 a[href^="tel"] {
-  color: #0a8cd7 !important;
+  color: #0068b7 !important;
   font-size: 1.3rem; }
   .m-modal a[href^="tel"] {
     display: block;
@@ -1040,7 +1040,7 @@ a[href^="tel"] {
     .m-modal a[href^="tel"] i {
       margin-right: 0; }
     .m-modal a[href^="tel"] .ico-tel:after {
-      color: #0a8cd7 !important; }
+      color: #0068b7 !important; }
 
 .tel-fixed {
   text-align: center;
@@ -1242,7 +1242,7 @@ ol.decimal {
   color: #bf8e4c !important; }
 
 .main-color {
-  color: #0a8cd7; }
+  color: #0068b7; }
 
 .m-modal h3 {
   color: #333;
@@ -1269,7 +1269,7 @@ ol.decimal {
     border-top: 1px solid 	#c6c6c6;
     border-bottom: 1px solid #c6c6c6;
     background: #fff;
-    color: #0a8cd7; }
+    color: #0068b7; }
     .city-list h3.m-hide {
       display: block;
       opacity: 1;
@@ -1824,7 +1824,7 @@ ul.m-list {
     left: 20px;
     width: 5px;
     height: 100%;
-    background-color: #0a8cd7;
+    background-color: #0068b7;
     background-image: -webkit-radial-gradient(#fff 50%, transparent 50%);
     background-size: 14px 14px; }
   .t-sawtooth-r:after {
@@ -1835,7 +1835,7 @@ ul.m-list {
     bottom: 0;
     width: 20px;
     height: 100%;
-    background-color: #0a8cd7; }
+    background-color: #0068b7; }
 
 .t-sawtooth-b {
   position: relative; }
@@ -2003,7 +2003,7 @@ ul.m-list {
       display: block;
       margin: 0 auto; }
   .select-schedule dd {
-    overflow: auto;
+    overflow: hidden;
     padding-left: 41px;
     border-top: 1px solid #e3e3e3;
     min-height: 49px; }
@@ -2024,7 +2024,7 @@ ul.m-list {
       box-sizing: border-box;
       line-height: 1.4; }
       .select-schedule dd a > span {
-        overflow: auto;
+        overflow: hidden;
         position: relative;
         display: table-cell;
         line-height: 49px;
@@ -2329,9 +2329,9 @@ ul.m-list {
     display: inline-block;
     margin: 4px 2px;
     padding: .4em .3em;
-    border: 1px solid #0a8cd7;
+    border: 1px solid #0068b7;
     border-radius: 100px;
-    color: #0a8cd7; }
+    color: #0068b7; }
   .seats-info p {
     margin-top: 10px;
     color: #999; }
@@ -2357,7 +2357,7 @@ ul.m-list {
       color: #999;
       line-height: 26px; }
       .seats-info .total-info span b {
-        color: #0a8cd7;
+        color: #0068b7;
         font-weight: normal; }
         .seats-info .total-info span b i {
           font-size: 1.3rem; }
@@ -2380,7 +2380,7 @@ ul.m-list {
           padding-right: 1em;
           background: none;
           border: 1px solid #e3e3e3 !important;
-          color: #0a8cd7;
+          color: #0068b7;
           font-size: 1.2rem !important; }
 
 .footer-fixed {
@@ -3019,7 +3019,7 @@ a.green {
     min-height: 40px;
     line-height: 40px;
     border-bottom: 1px solid #e3e3e3;
-    color: #0a8cd7; }
+    color: #0068b7; }
   .cinemas-box ul.m-list li p {
     padding-top: 10px; }
   .cinemas-box ul.m-list li a[href^="tel"] {
@@ -3089,7 +3089,7 @@ a.green {
       box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5) inset; }
     .paySuccess-box .note-box h2 {
       padding-top: 20px;
-      color: #0a8cd7; }
+      color: #0068b7; }
     .paySuccess-box .note-box p {
       padding-bottom: 20px; }
     .paySuccess-box .note-box .h-box a {
@@ -3100,4 +3100,4 @@ a.green {
         right: auto;
         border-color: #fff; }
 
-/*# sourceMappingURL=style.css.map */
+/*# sourceMappingURL=stylehymhyyc.css.map */

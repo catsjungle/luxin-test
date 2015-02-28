@@ -1,6 +1,6 @@
-define(['view/page/base', 'viewmodel/page/order', 'backbone.joint',
+define(['view/page/base', 'util/cinema','viewmodel/page/order', 'backbone.joint',
     'appRouter','view/dialog/message', 'tpl/order'], function(
-      Base, orderVM, Joint, appRouter, MessageView) {
+      Base, CinemaDe,orderVM, Joint, appRouter, MessageView) {
       var parent = Base.prototype;
       var $ = Joint.$;
       var _ = Joint._;
@@ -15,7 +15,7 @@ define(['view/page/base', 'viewmodel/page/order', 'backbone.joint',
 
         initialize: Joint.after(parent.initialize, function(option) {
             var view = this;
-            view.setTitle('鲁信影城济南振兴街影城');
+            view.setTitle(CinemaDe.title);
             view.data.EOrderStatus={"1":"等待支付","2":"已支付","3":"已消费","6":"已发码","7":"已过期","8":"已取消","9":"已退款","10":"已退款","11":"发码失败","20":"已出票","21":"退款中","22":"退款失败","23":"已退款"};
             view.data.EStatusMsg={"2":"正在出票请稍后","21":"退款中","23":"已退款","9":"已退款","10":"已退款","11":"抱歉出票失败，请联系客服退款"};
             view.sync('vm', view.vm = new orderVM(option));

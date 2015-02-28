@@ -1,13 +1,13 @@
 define([
     'view/base', 'backbone.joint', 'appRouter',
-    'util/city', 'util/login', 'fx/scroller',
+    'util/cinema', 'util/city', 'util/login', 'fx/scroller',
     'viewmodel/moviedata', 'util/wxbridge', 'util/wxShareOption',
     'util/analytics', 'tpl/main'
 ], function (
     Base, Joint, appRouter,
-    City, login, scroller,
-    MovieData, wxbridge, wxShareOption/*nothing*/,
-    analytics/*nothing*/
+    CinemaDe, City, login, scroller,
+    MovieData, wxbridge, wxShareOption,
+    analytics
 ) {
     var parent = Base.prototype;
     var MainView = Base.extend({
@@ -40,7 +40,6 @@ define([
                 });
             },
             'tap .bottom-back': function () {
-
                 window.history.go(-1);
             },
             'tap .bottom-forward': function () {
@@ -48,12 +47,10 @@ define([
             },
             'tap .bottom-refresh': function () {
                 if (this._cheat % 7 == 0) {
-                    // alert(window.timestamp);
+                    alert(window.timestamp);
                     return;
                 }
-
                 delete this._cheat;
-
                 window.MovieData.data = {};
                 appRouter.reload();
             },
@@ -61,11 +58,6 @@ define([
                 if(event.target === event.currentTarget) {
                     this._cheat = (this._cheat || 0) + 1;
                 }
-
-                // console.log('------------------');
-                // console.log(window.history)
-                // console.log(window.MovieData.data);
-                // console.log(this._cheat)
             },
             'touchstart .touchable': function(event) {
                 Joint.$(event.currentTarget).addClass('hover');
@@ -134,9 +126,9 @@ define([
                     return !!fragment.code;
                 }
             }, function(fragment) {
+                // debugger;
                 login.handleRoute(fragment)
             });
-
             appRouter.route('city-*city-*target', function (city, target) {
                 City.set(city, target).then(function (city, target) {
                     appRouter.navigate(target, {
@@ -145,7 +137,6 @@ define([
                     });
                 });
             });
-
             view.once('$J:render:done', function () {
                 Backbone.history.start({
                    // pushState: true,
@@ -153,26 +144,22 @@ define([
                    // root: location.pathname + '?'
                 });
             }); 
-
             function routePage(route, name) {
                 if (!name) {
                     name = route.match(/^[^\/-]+/)[0];
                 }
-                // console.log(name);
                 appRouter.route(route, function () {
                     var args = Joint._.toArray(arguments);
-                    // console.log(args)
                     var mod = 'view/page/' + name;
-                    // console.log(require.defined(mod));
-                    // debugger;
                     var load = (require.defined ? require.defined(mod) : require._defined[mod]) || MovieData.loadJs('js/' + mod + '.js?_=' + window.timestamp);
                     Joint.Deferred.when(/*City.decideCity(name), */load).then(function () {
                         //传参cityId
                         var cityId = {};
-                        cityId.city_id = 144;  //济南
+                        //cityId.city_id = 210;
+                        //cityId.cinema_id = '5470085216feb413d4142c3e';
+                        cityId.city_id = CinemaDe.cityId;
+                        cityId.cinema_id = CinemaDe.cinemaId;
 
-                        cityId.cinema_id = '547009da16feb413d414572b';//'5470085216feb413d4142c3e';//'1004192';
-                    // Joint.Deferred.when(City.decideCity(name), load).then(function (cityId) {
                         if (!cityId){
                             renderPage(mod, { args: args});
                         }else{

@@ -1,4 +1,4 @@
-define(['util/wxbridge', 'appRouter'], function (wxbridge, appRouter) {
+define(['util/wxbridge','util/cinema', 'appRouter'], function (wxbridge, CinemaDe, appRouter) {
     appRouter.on('route', listen);
 
     function listen() {
@@ -6,7 +6,7 @@ define(['util/wxbridge', 'appRouter'], function (wxbridge, appRouter) {
             //分享到好友
             Bridge.on('menu:share:appmessage', function (argv) {
                 var imgUrl = location.href.substring(0,location.href.lastIndexOf("/")+1)+"css/img/jydypic.jpg";
-                var title = '鲁信影城济南振兴街影城';
+                var title = CinemaDe.title;
                 var desc = '电影票手机版，开启你的电影生活！随时随地，购票观影！';
                 var backLink =location.href;
                 Bridge.invoke("sendAppMessage", {
@@ -23,7 +23,7 @@ define(['util/wxbridge', 'appRouter'], function (wxbridge, appRouter) {
             //分享到朋友圈
             Bridge.on('menu:share:timeline', function (argv) {
                 var imgUrl = location.href.substring(0,location.href.lastIndexOf("/")+1)+"css/img/jydypic.jpg";
-                var title = '鲁信影城济南振兴街影城';
+                var title = CinemaDe.title;
                 var desc = '电影票手机版，开启你的电影生活！随时随地，购票观影！';
                 var backLink =location.href;
                 Bridge.invoke("shareTimeline", {

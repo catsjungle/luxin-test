@@ -11,13 +11,11 @@ define(['backbone.joint', 'util/csrftoken', 'util/date','util/platform'], functi
     var idPathFunc=function(id){
         var arr=id.split("").reverse();
         return arr[0];
-        //return arr[1]+'/'+arr[0];
+        //return arr[1]+'/'+arr[0]; 
     };
     var MovieData = Joint.ViewModel.extend({
         },
         {
-
-            ////add by Jackey begin
 
             // 获取指定影院信息
             loadCinemaContent: function (platformId, cinemaId) {
@@ -69,7 +67,10 @@ define(['backbone.joint', 'util/csrftoken', 'util/date','util/platform'], functi
             // 获取所有影院列表
             loadCinemalist: function (platformId) {
                 //debugger;
-                var t=platformId+'_new';
+                var t=platformId;
+                if(t=='fyyc'){
+                    t=t+'_new';
+                }
                 return loadInfo('cinemas/public/'+platformId+'/cinemas_public_'+t+'.json').then(function(cinema) {
                     return cinema;
                 });
@@ -183,20 +184,6 @@ define(['backbone.joint', 'util/csrftoken', 'util/date','util/platform'], functi
                             if(option.loadMovieInfo) {
                                 movie.info = store.infos[movie.id];
                             }
-
-                            //过滤特殊供应商订座券 begin(暂时只包含129)
-                            /*
-                            _.each(movie.sche, function (versions, date) {
-                                _.each(versions, function (version, k) {
-                                    _.each(version.seat_info, function (mp, mpid) {
-                                        if (mp.traderid == "129") {
-                                            delete version.seat_info[mpid];
-                                        }
-                                    });
-                                });
-                            });
-                            */
-                            //过滤特殊供应商订座券 end
 
 
                             //<editor-fold desc="展开版本">
@@ -643,15 +630,19 @@ define(['backbone.joint', 'util/csrftoken', 'util/date','util/platform'], functi
         if (!name) {
             name = url.match(/(\w+)\.json/)[1];
         }
-        return load(name, url).then(function (o) {
 
+        return load(name, url).then(function (o) {
             return o.info || Joint.Deferred.reject('malform');
         });
     }
     //
     function load(name, url) {
-	//根据name解析MovieData.set格式的json数据
-		name=name.replace("_new","");
+
+
+        if(name=='cinemas_public_fyyc_new'){
+            name='cinemas_public_fyyc'
+        }
+
         var result = window.MovieData.data[name];
         if (result) {
             var dfr = Joint.Deferred.defer();

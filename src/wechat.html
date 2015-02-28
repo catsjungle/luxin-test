@@ -3,7 +3,6 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>鲁信影城济南振兴街影城</title>
 
     <meta name="description" content="">
     <meta name="keywords" content="">
@@ -21,10 +20,8 @@
     window.wxconfig = {
        // disable_agent: [2, 3]
     };
-
-    //JSLIB
-
-    require(['view/main', 'view/page/movie_list'], function (MainView) {
+    require(['view/main', 'util/cinema', 'view/page/movie_list'], function (MainView, CinemaDe) {
+        window.title = CinemaDe.title
         (new MainView({el: document.body})).render();
     });
 </script>

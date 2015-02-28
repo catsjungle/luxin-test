@@ -1,10 +1,11 @@
 define([
   'view/page/base',
+  'util/cinema',
   'backbone.joint',
   'appRouter',
   'viewmodel/page/v_success',
   'tpl/tpl_success'
-], function(Base, Joint, appRouter,SuccessVM) {
+], function(Base, CinemaDe,Joint, appRouter,SuccessVM) {
   var parent = Base.prototype;
   var _ = Joint._;
 
@@ -20,7 +21,7 @@ define([
     },
     initialize: Joint.after(parent.initialize, function(option) {
       var view = this;
-      view.setTitle('鲁信影城济南振兴街影城');
+      view.setTitle(CinemaDe.title);
       view.sync('vm', view.vm = new SuccessVM);
       view.vm.loadinfo(option.cinemaId);
       view.handleError(view.vm);

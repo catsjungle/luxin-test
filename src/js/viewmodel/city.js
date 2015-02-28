@@ -13,6 +13,7 @@ define([
             return Joint.Deferred.when(
                 MovieData.loadCinemalist(platformId)
               ).then(function(data) {
+              
 //                data[0].city_id='10';
 //                data[0].city_name='北京';
                 // data[0].city_id='210';
